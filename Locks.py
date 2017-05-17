@@ -12,11 +12,14 @@ class Num():
         self.counter = temp
         
 def worker(num):
-    num.increment()
+    with lock:
+        num.increment()
     return
 
 threads = []
 num = Num()
+lock = threading.Lock()
+
 for i in range(15):
     t = threading.Thread(target=worker, args=(num,))
     threads.append(t)
